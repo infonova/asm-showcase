@@ -1,4 +1,4 @@
 provider "google" {
-  reqion = "europe-west1"
+  region  = "europe-west1"
   project = "asm-showcase"
 }
