@@ -1,24 +1,17 @@
 locals {
-  project_id        = "asm-showcase"
   region            = "europe-west1"
-  enabled_services  = ["compute.googleapis.com"]
-  vpc_name          = "${local.project_id}-vpc"
-  subnet_name       = "${local.project_id}-subnet"
+  gke_zone          = "europe-west1-b"
+  vpc_name          = "${var.project_id}-vpc"
+  subnet_name       = "${var.project_id}-subnet"
   pod_ip_range_name = "pod-ip-range"
   svc_ip_range_name = "svc-ip-range"
-}
-
-resource "google_project_service" "enabled_service" {
-  for_each = toset(local.enabled_services)
-  project  = local.project_id
-  service  = each.key
 }
 
 module "vpc" {
   source  = "terraform-google-modules/network/google"
   version = "~> 6.0"
 
-  project_id   = local.project_id
+  project_id   = var.project_id
   network_name = local.vpc_name
   routing_mode = "GLOBAL"
 
@@ -43,4 +36,14 @@ module "vpc" {
       }
     ]
   }
+}
+
+module "gke" {
+  source            = "./modules/kubernetes"
+  project_id        = var.project_id
+  zones             = [local.gke_zone]
+  network           = local.vpc_name
+  subnetwork        = local.subnet_name
+  ip_range_pods     = local.pod_ip_range_name
+  ip_range_services = local.svc_ip_range_name
 }
