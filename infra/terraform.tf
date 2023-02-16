@@ -1,10 +1,8 @@
 terraform {
-  cloud {
-    organization = "patricks-org"
-
-    workspaces {
-      name = "asm-showcase-infra"
-    }
+  
+  backend "gcs" {
+    bucket = "tf-state-be-asm-showcase"
+    prefix = "terraform/state"
   }
 
   required_version = "~> 1.3.7"
