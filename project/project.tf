@@ -6,7 +6,8 @@ locals {
 
   enabled_services = [
     "compute.googleapis.com",
-    "container.googleapis.com"
+    "container.googleapis.com",
+    "cloudresourcemanager.googleapis.com"
   ]
 }
 
