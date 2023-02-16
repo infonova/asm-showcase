@@ -46,6 +46,6 @@ resource "google_service_account_iam_member" "tfc_service_account_member" {
 
 resource "google_project_iam_member" "tfc_project_member" {
   project = google_project.asm_showcase_project.project_id
-  role    = "roles/editor"
+  role    = "roles/owner"
   member  = "serviceAccount:${google_service_account.tfc_asm_showcase.email}"
 }
