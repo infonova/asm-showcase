@@ -9,7 +9,8 @@ locals {
     "container.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "gkehub.googleapis.com",
-    "meshconfig.googleapis.com"
+    "meshconfig.googleapis.com",
+    "mesh.googleapis.com"
   ]
 }
 
