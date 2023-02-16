@@ -42,7 +42,7 @@ module "gke" {
   source            = "./modules/kubernetes"
   project_id        = var.project_id
   zones             = [local.gke_zone]
-  network           = local.vpc_name
+  network           = module.vpc.network_name
   subnetwork        = local.subnet_name
   ip_range_pods     = local.pod_ip_range_name
   ip_range_services = local.svc_ip_range_name
