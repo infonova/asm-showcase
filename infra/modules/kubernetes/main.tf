@@ -9,14 +9,20 @@ module "gke" {
   ip_range_pods     = var.ip_range_pods
   ip_range_services = var.ip_range_services
   network_policy    = false
+  release_channel   = "REGULAR"
+  remove_default_node_pool = true
+
 
   node_pools = [
     {
       name         = "default-node-pool"
+      image_type   = "COS_CONTAINERD"
       machine_type = "e2-standard-4"
       min_count    = 1
       max_count    = 3
       spot         = true
+      auto_upgrade = true
+      auto_repair  = true
     }
   ]
 }
