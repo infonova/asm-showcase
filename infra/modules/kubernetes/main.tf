@@ -1,3 +1,5 @@
+data "google_project" "proj" {}
+
 module "gke" {
   source            = "terraform-google-modules/kubernetes-engine/google"
   project_id        = var.project_id
@@ -11,6 +13,10 @@ module "gke" {
   network_policy    = false
   release_channel   = "REGULAR"
   remove_default_node_pool = true
+
+  cluster_resource_labels = {
+    "mesh_id" = "proj-${data.google_project.proj.number}"
+  }
 
 
   node_pools = [
