@@ -17,5 +17,9 @@ resource "google_gke_hub_feature_membership" "acm" {
       }
     }
   }
+  policy_controller {
+      enabled                    = true
+      template_library_installed = true
+  }
   provider = google-beta
 }
