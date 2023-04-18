@@ -9,7 +9,7 @@ locals {
 
 module "vpc" {
   source  = "terraform-google-modules/network/google"
-  version = "~> 6.0"
+  version = "~> 7.0"
 
   project_id   = var.project_id
   network_name = local.vpc_name
@@ -39,11 +39,32 @@ module "vpc" {
 }
 
 module "gke" {
+  for_each = toset([ "1","2" ])
+  cl_index          = each.value              
   source            = "./modules/kubernetes"
   project_id        = var.project_id
-  zones             = [local.gke_zone]
+  region            = local.region
   network           = module.vpc.network_name
   subnetwork        = module.vpc.subnets_names[0]
   ip_range_pods     = local.pod_ip_range_name
   ip_range_services = local.svc_ip_range_name
+  acm_feature = google_gke_hub_feature.acm.name
+  asm_feature = google_gke_hub_feature.asm.name
+}
+
+
+resource "google_gke_hub_feature" "acm" {
+  project        = var.project_id
+  name = "configmanagement"
+  location = "global"
+
+  provider = google-beta
+}
+
+resource "google_gke_hub_feature" "asm" {
+  project        = var.project_id
+  name = "servicemesh"
+  location = "global"
+
+  provider = google-beta
 }

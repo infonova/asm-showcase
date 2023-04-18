@@ -3,9 +3,9 @@ variable "project_id" {
   description = "The project ID to host the cluster in"
 }
 
-variable "zones" {
-  type        = list(string)
-  description = "The zones to host the cluster in"
+variable "region" {
+  type        = string
+  description = "The region to host the cluster in"
 }
 
 variable "network" {
@@ -22,4 +22,16 @@ variable "ip_range_pods" {
 
 variable "ip_range_services" {
   type = string
+}
+
+variable "cl_index" {
+  type = string
+} 
+
+variable "asm_feature" {
+  
+}
+
+variable "acm_feature" {
+  
 }
