@@ -1,0 +1,47 @@
+apiVersion: networking.gke.io/v1
+kind: MultiClusterService
+metadata:
+  name: anthos-ingress-service
+  namespace: asm-showcase  
+  annotations:
+    cloud.google.com/backend-config: '{"ports": {"http":"ingress-backendconfig"}}'
+    networking.gke.io/app-protocols: '{"http":"HTTP2"}'
+spec:
+  clusters: []
+  template:
+    spec:
+      selector:
+        istio: ingressgateway
+      ports:
+        - name: http
+          protocol: TCP
+          port: 443
+          targetPort: 8443
+
+---
+apiVersion: networking.gke.io/v1
+kind: MultiClusterIngress
+metadata:
+  name: anthos-ingress-gateway
+  namespace: asm-showcase
+  annotations:
+    networking.gke.io/static-ip: https://www.googleapis.com/compute/v1/projects/asm-showcase-6312a455/global/addresses/multi-cluster-ingress-api
+spec:
+  template:
+    spec:
+      backend:
+        serviceName: anthos-ingress-service
+        servicePort: 443
+      tls:
+        - secretName: multi-cluster-ingress
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: ingress-backendconfig
+  namespace: asm-showcase  
+spec:
+  healthCheck:
+    requestPath: /healthz/ready
+    port: 15021
+    type: HTTP        

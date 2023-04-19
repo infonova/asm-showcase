@@ -38,10 +38,10 @@ module "vpc" {
   }
 }
 
-module "gke" {
+module "worker_cluster" {
   for_each = toset([ "1","2" ])
   cl_index          = each.value              
-  source            = "./modules/kubernetes"
+  source            = "./modules/worker-cluster"
   project_id        = var.project_id
   region            = local.region
   network           = module.vpc.network_name
@@ -50,6 +50,17 @@ module "gke" {
   ip_range_services = local.svc_ip_range_name
   acm_feature = google_gke_hub_feature.acm.name
   asm_feature = google_gke_hub_feature.asm.name
+}
+
+module "config_cluster" {           
+  source            = "./modules/config-cluster"
+  project_id        = var.project_id
+  region            = local.region
+  network           = module.vpc.network_name
+  subnetwork        = module.vpc.subnets_names[0]
+  ip_range_pods     = local.pod_ip_range_name
+  ip_range_services = local.svc_ip_range_name
+  acm_feature = google_gke_hub_feature.acm.name
 }
 
 
@@ -67,4 +78,8 @@ resource "google_gke_hub_feature" "asm" {
   location = "global"
 
   provider = google-beta
+}
+
+resource "google_compute_global_address" "multi_cluster_ingress_ip_api" {
+  name = "multi-cluster-ingress-api"
 }
