@@ -5,7 +5,7 @@ metadata:
   namespace: asm-showcase
 spec:
   selector:
-    app: my-gateway-controller
+    istio: ingressgateway
   servers:
   - port:
       number: 80
