@@ -87,9 +87,8 @@ spec:
   # The status-port exposes a /healthz/ready endpoint that can be used for health checks.
   - name: status-port
     port: 15021
-  - name: https
-    port: 443    
-    targetPort: 8443
+  - name: http
+    port: 80    
   selector:
     app: asm-ingressgateway
     istio: ingressgateway
