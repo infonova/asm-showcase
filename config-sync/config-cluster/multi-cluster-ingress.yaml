@@ -5,7 +5,7 @@ metadata:
   namespace: asm-showcase  
   annotations:
     cloud.google.com/backend-config: '{"ports": {"http":"ingress-backendconfig"}}'
-    networking.gke.io/app-protocols: '{"http":"HTTP2"}'
+    networking.gke.io/app-protocols: '{"http":"HTTP"}'
 spec:
   clusters: []
   template:
