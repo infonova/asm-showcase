@@ -89,6 +89,7 @@ spec:
     port: 15021
   - name: https
     port: 443    
+    targetPort: 8443
   selector:
     app: asm-ingressgateway
     istio: ingressgateway
