@@ -13,7 +13,7 @@ resource "google_gke_hub_feature" "configmanagement_ingress_feature" {
   project        = var.project_id  
   name     = "multiclusteringress"
   location = "global"
-  provider = google
+  provider = google-beta
   spec {
     multiclusteringress {
       config_membership = google_gke_hub_membership.membership.id
