@@ -32,8 +32,6 @@ spec:
       backend:
         serviceName: anthos-ingress-service
         servicePort: 443
-      tls:
-        - secretName: multi-cluster-ingress
 ---
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
