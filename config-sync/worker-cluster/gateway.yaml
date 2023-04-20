@@ -26,6 +26,11 @@ spec:
   - my-gateway
   http:
   - name: "httpbin"
+    match:
+    - uri:
+        prefix: "/httpbin"  
+    rewrite:
+      uri: "/"        
     route:
     - destination:
         host: httpbin
