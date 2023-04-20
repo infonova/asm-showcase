@@ -28,7 +28,7 @@ spec:
   - name: "httpbin"
     match:
     - uri:
-        prefix: "/httpbin"  
+        prefix: "/httpbin/"  
     rewrite:
       uri: "/"        
     route:
