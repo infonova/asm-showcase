@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: adservice
+  namespace: asm-showcase
 spec:
   ports:
   - name: grpc
@@ -15,6 +16,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: cartservice
+  namespace: asm-showcase  
 spec:
   ports:
   - name: grpc
@@ -28,6 +30,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: checkoutservice
+  namespace: asm-showcase  
 spec:
   ports:
   - name: grpc
@@ -54,6 +57,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: emailservice
+  namespace: asm-showcase  
 spec:
   ports:
   - name: grpc
@@ -67,6 +71,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: frontend
+  namespace: asm-showcase  
 spec:
   ports:
   - name: http
@@ -80,6 +85,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: paymentservice
+  namespace: asm-showcase  
 spec:
   ports:
   - name: grpc
@@ -93,6 +99,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: productcatalogservice
+  namespace: asm-showcase  
 spec:
   ports:
   - name: grpc
@@ -106,6 +113,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: recommendationservice
+  namespace: asm-showcase  
 spec:
   ports:
   - name: grpc
@@ -119,6 +127,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: redis-cart
+  namespace: asm-showcase  
 spec:
   ports:
   - name: tcp-redis
@@ -132,6 +141,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: shippingservice
+  namespace: asm-showcase  
 spec:
   ports:
   - name: grpc
@@ -145,6 +155,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: adservice
+  namespace: asm-showcase  
 spec:
   selector:
     matchLabels:
@@ -202,6 +213,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cartservice
+  namespace: asm-showcase  
 spec:
   selector:
     matchLabels:
@@ -260,6 +272,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: checkoutservice
+  namespace: asm-showcase  
 spec:
   selector:
     matchLabels:
@@ -324,6 +337,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: currencyservice
+  namespace: asm-showcase  
 spec:
   selector:
     matchLabels:
@@ -380,6 +394,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: emailservice
+  namespace: asm-showcase  
 spec:
   selector:
     matchLabels:
@@ -437,6 +452,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
+  namespace: asm-showcase  
 spec:
   selector:
     matchLabels:
@@ -513,6 +529,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: loadgenerator
+  namespace: asm-showcase  
 spec:
   replicas: 1
   selector:
@@ -583,6 +600,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: paymentservice
+  namespace: asm-showcase  
 spec:
   selector:
     matchLabels:
@@ -638,6 +656,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: productcatalogservice
+  namespace: asm-showcase  
 spec:
   selector:
     matchLabels:
@@ -693,6 +712,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: recommendationservice
+  namespace: asm-showcase  
 spec:
   selector:
     matchLabels:
@@ -752,6 +772,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-cart
+  namespace: asm-showcase  
 spec:
   selector:
     matchLabels:
@@ -804,6 +825,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: shippingservice
+  namespace: asm-showcase  
 spec:
   selector:
     matchLabels:
@@ -859,6 +881,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
   name: allow-egress-google-metadata
+  namespace: asm-showcase  
 spec:
   addresses:
   - 169.254.169.254
@@ -876,6 +899,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
   name: allow-egress-googleapis
+  namespace: asm-showcase  
 spec:
   hosts:
   - accounts.google.com
@@ -892,6 +916,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: frontend
+  namespace: asm-showcase  
 spec:
   hosts:
   - frontend.default.svc.cluster.local
@@ -906,6 +931,7 @@ apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: shop-route
+  namespace: asm-showcase  
 spec:
   gateways:
   - my-gateway
