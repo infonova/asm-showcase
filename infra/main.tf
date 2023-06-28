@@ -1,17 +1,20 @@
 locals {
   region            = "europe-west1"
   gke_zone          = "europe-west1-b"
-  vpc_name          = "${var.project_id}-vpc"
-  subnet_name       = "${var.project_id}-subnet"
+  vpc_name          = "asm-showcase-vpc"
+  subnet_name       = "asm-showcase-subnet"
   pod_ip_range_name = "pod-ip-range"
   svc_ip_range_name = "svc-ip-range"
 }
 
+data "google_project" "project" {}
+
+
 module "vpc" {
   source  = "terraform-google-modules/network/google"
   version = "~> 7.0"
+  project_id = data.google_project.project.project_id
 
-  project_id   = var.project_id
   network_name = local.vpc_name
   routing_mode = "GLOBAL"
 
@@ -42,7 +45,6 @@ module "worker_cluster" {
   for_each = toset([ "1","2" ])
   cl_index          = each.value              
   source            = "./modules/worker-cluster"
-  project_id        = var.project_id
   region            = local.region
   network           = module.vpc.network_name
   subnetwork        = module.vpc.subnets_names[0]
@@ -54,7 +56,6 @@ module "worker_cluster" {
 
 module "config_cluster" {           
   source            = "./modules/config-cluster"
-  project_id        = var.project_id
   region            = local.region
   network           = module.vpc.network_name
   subnetwork        = module.vpc.subnets_names[0]
@@ -65,7 +66,7 @@ module "config_cluster" {
 
 
 resource "google_gke_hub_feature" "acm" {
-  project        = var.project_id
+  project = data.google_project.project.project_id
   name = "configmanagement"
   location = "global"
 
@@ -73,7 +74,7 @@ resource "google_gke_hub_feature" "acm" {
 }
 
 resource "google_gke_hub_feature" "asm" {
-  project        = var.project_id
+  project = data.google_project.project.project_id
   name = "servicemesh"
   location = "global"
 
@@ -82,4 +83,24 @@ resource "google_gke_hub_feature" "asm" {
 
 resource "google_compute_global_address" "multi_cluster_ingress_ip_api" {
   name = "multi-cluster-ingress-api"
+}
+
+resource "google_compute_managed_ssl_certificate" "anthos" {
+  name = "anthos-cert"
+
+  managed {
+    domains = ["anthos.gcp-demo.be-svc.at."]
+  }
+}
+
+data "google_dns_managed_zone" "anthos" {
+  name     = "anthos-gcp-demo"
+}
+
+resource "google_dns_record_set" "mci-a-record" {
+  managed_zone = data.google_dns_managed_zone.anthos.name
+  name    = "anthos.gcp-demo.be-svc.at."
+  type    = "A"
+  rrdatas = [google_compute_global_address.multi_cluster_ingress_ip_api.address]
+  ttl     = 300
 }

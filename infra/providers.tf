@@ -1,4 +1,4 @@
 provider "google" {
   region  = "europe-west1"
-  project = var.project_id
+  project = "asm-showcase-6312a455"
 }

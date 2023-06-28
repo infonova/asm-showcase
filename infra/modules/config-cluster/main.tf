@@ -1,9 +1,9 @@
-data "google_project" "proj" {}
+data "google_project" "project" {}
 
 module "gke" {
   source            = "terraform-google-modules/kubernetes-engine/google//modules/beta-autopilot-public-cluster"
-  project_id        = var.project_id
-  name              = "${var.project_id}-gke-config-cluster"
+  project_id        = data.google_project.project.project_id
+  name              = "gke-config-cluster"
   region            = var.region
   network           = var.network
   subnetwork        = var.subnetwork

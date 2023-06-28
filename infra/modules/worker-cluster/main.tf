@@ -1,9 +1,9 @@
-data "google_project" "proj" {}
+data "google_project" "project" {}
 
 module "gke" {
   source            = "terraform-google-modules/kubernetes-engine/google//modules/beta-autopilot-public-cluster"
-  project_id        = var.project_id
-  name              = "${var.project_id}-gke-asm-cluster-${var.cl_index}"
+  project_id        = data.google_project.project.project_id
+  name              = "gke-asm-cluster-${var.cl_index}"
   region            = var.region
   network           = var.network
   subnetwork        = var.subnetwork
@@ -13,7 +13,7 @@ module "gke" {
   enable_vertical_pod_autoscaling = true
 
   cluster_resource_labels = {
-    "mesh_id" = "proj-${data.google_project.proj.number}"
+    "mesh_id" = "proj-${data.google_project.project.number}"
   }
 
 }
