@@ -15,3 +15,5 @@ The Worker Clusters are configured with [Terraform to use Config Sync and Policy
 It also contains [Mesh Options](config-sync/worker-cluster/mesh-options.yaml), which can be specified in a declaratively.
 
 Policies are applied, such as a [strict mTLS policy](config-sync/worker-cluster/mtls.yaml), which is an Istio feature, as well a sample Policy Controller (Gatekeeper) contraint to [require non-privileged pods](config-sync/worker-cluster/no-priviliged-pod-constraint.yaml).
+
+For simplicity and convienience, a  [demo application](config-sync/worker-cluster/online-boutique.yaml) is also deployed using Config Sync (though this would typically be done with a CD tool such as Argo).
