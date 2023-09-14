@@ -1,9 +1,9 @@
 # asm-showcase
 This is a showcase for demostrating Anthos Service Mesh and related Anthos features.
 
-Terraform is used to deploy [general infrastructure](infra/main.tf) such as VPC, DNS records, a Google managed certificate and the Kubernetes clusters (Autopilot mode).
+Terraform is used to deploy [general infrastructure](infra/main.tf) such as VPC, DNS records, a static IP, and a Google managed certificate and the Kubernetes clusters (Autopilot mode).
 
-There is a config cluster, which hosts a Multi-Cluster Ingress (MCI) and [is configured using the fleet API with Terraform](infra/modules/config-cluster/fleet.tf). For this demo, a google managed certificate is referenced in the [MCI declaration](config-sync/config-cluster/multi-cluster-ingress.yaml).
+There is a config cluster, which hosts a Multi-Cluster Ingress (MCI) and [is configured using the fleet API with Terraform](infra/modules/config-cluster/fleet.tf). For this demo, a google managed certificate and an static IP are referenced in the [MCI declaration](config-sync/config-cluster/multi-cluster-ingress.yaml).
 
 There are two worker clusters, which run Anthos Service Mesh, also configured with [Terraform and the fleet API](infra/modules/worker-cluster/asm.tf)
 
