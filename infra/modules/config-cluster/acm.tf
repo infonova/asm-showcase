@@ -6,7 +6,7 @@ resource "google_gke_hub_feature_membership" "acm" {
   feature = var.acm_feature
   membership = google_gke_hub_membership.membership.membership_id
   configmanagement {
-    version = "1.14.3"
+    version = "1.16.0"
     config_sync {
       source_format = "unstructured"
       git {
