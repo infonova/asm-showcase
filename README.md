@@ -17,3 +17,13 @@ It also contains [Mesh Options](config-sync/worker-cluster/mesh-options.yaml), w
 Policies are applied, such as a [strict mTLS policy](config-sync/worker-cluster/mtls.yaml), which is an Istio feature, as well a sample Policy Controller (Gatekeeper) contraint to [require non-privileged pods](config-sync/worker-cluster/no-priviliged-pod-constraint.yaml).
 
 For simplicity and convienience, a  [demo application](config-sync/worker-cluster/online-boutique.yaml) is also deployed using Config Sync (though this would typically be done with a CD tool such as Argo) which is available at https://anthos.gcp-demo.be-svc.at.
+
+# How to run it
+
+First, make sure, you are running in the be GCP project and you have permission to run it, e.g. by using <pre>gcloud auth application-default login</pre>
+
+Then run Terraform. This setups everything.
+<pre>cd infra
+terraform init
+terraform apply
+</pre>
