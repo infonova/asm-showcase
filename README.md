@@ -1,11 +1,13 @@
 # asm-showcase
 This is a showcase for demostrating Anthos Service Mesh and related Anthos features.
 
-Terraform is used to deploy [general infrastructure](infra/main.tf) such as VPC, DNS records, a static IP, and a Google managed certificate and the Kubernetes clusters (Autopilot mode).
+Terraform is used to deploy [general infrastructure](infra/main.tf) such as VPC, DNS records, a static IP, and a Google managed certificate and the Kubernetes clusters.
 
 There is a config cluster, which hosts a Multi-Cluster Ingress (MCI) and [is configured using the fleet API with Terraform](infra/modules/config-cluster/fleet.tf). For this demo, a google managed certificate and an static IP are referenced in the [MCI declaration](config-sync/config-cluster/multi-cluster-ingress.yaml).
 
-There are two worker clusters, which run Anthos Service Mesh, also configured with [Terraform and the fleet API](infra/modules/worker-cluster/asm.tf)
+There are two worker clusters, which run Anthos Service Mesh, also configured with [Terraform and the fleet API](infra/modules/worker-cluster/asm.tf).
+
+The config Cluster uses Autopilot mode, and the worker clusters use Standard mode. The reason for using Standard mode is the slow scale-up for Autopilot cluster, which is not suitable for a demo, which involves creating and destroying infrastructure frequently. It can take more then half an hour for all workloads to get deployed.
 
 Config Sync is used to deploy Kubernetes Manifests to the clusters. 
 The Config Cluster is configured with [Terraform to use Config Sync ](infra/modules/config-cluster/acm.tf) to use the manifests [config-sync/config-cluster](config-sync/config-cluster) configured in this folder. 
