@@ -29,3 +29,15 @@ Then run Terraform. This setups everything.
 terraform init
 terraform apply
 </pre>
+
+#Destroying it
+
+<pre>terraform destroy</pre>
+
+Limitations: When running that command, some resource may have to be cleaned up manually. This is relevant for the config cluster, as an existing MCI blocks destruction of the membership. Using this commands they can be deleted. Make sure that Config Sync is actually disabled, otherwise the MCI will be recreated.
+
+<pre>
+gcloud container clusters get-credentials gke-config-cluster --region europe-west1 --project asm-showcase-6312a455
+kubectl delete mci  --namespace asm-showcase anthos-ingress-gateway
+kubectl delete mcs  --namespace asm-showcase anthos-ingress-service
+</pre>
