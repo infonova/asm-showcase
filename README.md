@@ -7,7 +7,7 @@ There is a config cluster, which hosts a Multi-Cluster Ingress (MCI) and [is con
 
 There are two worker clusters, which run Anthos Service Mesh, also configured with [Terraform and the fleet API](infra/modules/worker-cluster/asm.tf).
 
-The config Cluster uses Autopilot mode, and the worker clusters use Standard mode. The reason for using Standard mode is the slow scale-up for Autopilot cluster, which is not suitable for a demo, which involves creating and destroying infrastructure frequently. It can take more then half an hour for all workloads to get deployed.
+The config Cluster uses Autopilot mode, and the worker clusters use Standard mode. The reason for using Standard mode is the slow scale-up for Autopilot cluster, which is not suitable for a demo, which involves creating and destroying infrastructure frequently. It can take more then half an hour for all workloads to get deployed (after the Terraform run, which itself can take 10 minutes).
 
 Config Sync is used to deploy Kubernetes Manifests to the clusters. 
 The Config Cluster is configured with [Terraform to use Config Sync ](infra/modules/config-cluster/acm.tf) to use the manifests [config-sync/config-cluster](config-sync/config-cluster) configured in this folder. 
