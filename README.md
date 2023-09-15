@@ -30,7 +30,7 @@ terraform init
 terraform apply
 </pre>
 
-#Destroying it
+# Destroying it
 
 <pre>terraform destroy</pre>
 
