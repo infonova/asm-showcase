@@ -1,9 +1,9 @@
 
 
 resource "google_gke_hub_feature_membership" "acm" {
-  project        = data.google_project.project.project_id
-  location = "global"
-  feature = var.acm_feature
+  project    = data.google_project.project.project_id
+  location   = "global"
+  feature    = var.acm_feature
   membership = google_gke_hub_membership.membership.membership_id
   configmanagement {
     version = "1.16.0"

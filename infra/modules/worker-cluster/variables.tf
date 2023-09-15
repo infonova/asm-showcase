@@ -23,12 +23,12 @@ variable "ip_range_services" {
 
 variable "cl_index" {
   type = string
-} 
+}
 
 variable "asm_feature" {
-  
+
 }
 
 variable "acm_feature" {
-  
+
 }

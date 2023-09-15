@@ -35,9 +35,9 @@ resource "google_project_service" "enabled_service" {
 }
 
 resource "google_storage_bucket" "tf_state" {
-  name = "tf-state-be-asm-showcase"
-  location = "EU"
-  project = google_project.asm_showcase_project.project_id
+  name                        = "tf-state-be-asm-showcase"
+  location                    = "EU"
+  project                     = google_project.asm_showcase_project.project_id
   uniform_bucket_level_access = true
-  public_access_prevention = "enforced"
+  public_access_prevention    = "enforced"
 }

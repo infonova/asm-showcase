@@ -11,8 +11,8 @@ data "google_project" "project" {}
 
 
 module "vpc" {
-  source  = "terraform-google-modules/network/google"
-  version = "~> 7.0"
+  source     = "terraform-google-modules/network/google"
+  version    = "~> 7.0"
   project_id = data.google_project.project.project_id
 
   network_name = local.vpc_name
@@ -42,40 +42,40 @@ module "vpc" {
 }
 
 module "worker_cluster" {
-  for_each = toset([ "1","2" ])
-  cl_index          = each.value              
+  for_each          = toset(["1", "2"])
+  cl_index          = each.value
   source            = "./modules/worker-cluster"
   region            = local.region
   network           = module.vpc.network_name
   subnetwork        = module.vpc.subnets_names[0]
   ip_range_pods     = local.pod_ip_range_name
   ip_range_services = local.svc_ip_range_name
-  acm_feature = google_gke_hub_feature.acm.name
-  asm_feature = google_gke_hub_feature.asm.name
+  acm_feature       = google_gke_hub_feature.acm.name
+  asm_feature       = google_gke_hub_feature.asm.name
 }
 
-module "config_cluster" {           
+module "config_cluster" {
   source            = "./modules/config-cluster"
   region            = local.region
   network           = module.vpc.network_name
   subnetwork        = module.vpc.subnets_names[0]
   ip_range_pods     = local.pod_ip_range_name
   ip_range_services = local.svc_ip_range_name
-  acm_feature = google_gke_hub_feature.acm.name
+  acm_feature       = google_gke_hub_feature.acm.name
 }
 
 
 resource "google_gke_hub_feature" "acm" {
-  project = data.google_project.project.project_id
-  name = "configmanagement"
+  project  = data.google_project.project.project_id
+  name     = "configmanagement"
   location = "global"
 
   provider = google-beta
 }
 
 resource "google_gke_hub_feature" "asm" {
-  project = data.google_project.project.project_id
-  name = "servicemesh"
+  project  = data.google_project.project.project_id
+  name     = "servicemesh"
   location = "global"
 
   provider = google-beta
@@ -94,13 +94,13 @@ resource "google_compute_managed_ssl_certificate" "anthos" {
 }
 
 data "google_dns_managed_zone" "anthos" {
-  name     = "anthos-gcp-demo"
+  name = "anthos-gcp-demo"
 }
 
 resource "google_dns_record_set" "mci-a-record" {
   managed_zone = data.google_dns_managed_zone.anthos.name
-  name    = "anthos.gcp-demo.be-svc.at."
-  type    = "A"
-  rrdatas = [google_compute_global_address.multi_cluster_ingress_ip_api.address]
-  ttl     = 300
+  name         = "anthos.gcp-demo.be-svc.at."
+  type         = "A"
+  rrdatas      = [google_compute_global_address.multi_cluster_ingress_ip_api.address]
+  ttl          = 300
 }

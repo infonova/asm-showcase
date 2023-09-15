@@ -1,5 +1,5 @@
 terraform {
-  
+
   backend "gcs" {
     bucket = "tf-state-be-asm-showcase"
     prefix = "terraform/state"
