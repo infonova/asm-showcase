@@ -42,7 +42,7 @@ module "vpc" {
 }
 
 module "worker_cluster" {
-  for_each          = toset(["1", "2"])
+  for_each          = toset(["1"])
   cl_index          = each.value
   source            = "./modules/worker-cluster"
   region            = local.region

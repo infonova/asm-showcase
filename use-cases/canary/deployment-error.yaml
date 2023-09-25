@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-service
+  namespace: asm-showcase
+spec:
+  selector:
+    matchLabels:
+      app: hello-service
+  template:
+    metadata:
+      labels:
+        app: hello-service
+    spec:
+      containers:
+        - name: hello-service
+          image: nicholasjackson/fake-service:v0.26.0
+          imagePullPolicy: IfNotPresent
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /ready
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /health
+          env:
+            - name: LISTEN_ADDR
+              value: '0.0.0.0:8080'
+            - name: MESSAGE
+              value: 'Hello from v4'
+            - name: ERROR_RATE
+              value: "1"
+            - name: ERROR_TYPE
+              value: "http_error"
+            - name: ERROR_CODE
+              value: "500"
+          ports:
+            - name: http
+              containerPort: 8080

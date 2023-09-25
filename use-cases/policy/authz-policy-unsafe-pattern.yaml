@@ -1,0 +1,12 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-health-endpoint
+  namespace: asm-showcase
+spec:
+  action: DENY
+  rules:
+    - to:
+        - operation:
+            paths:
+              - "/ui"
