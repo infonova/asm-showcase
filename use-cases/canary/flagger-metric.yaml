@@ -18,7 +18,7 @@ spec:
             response_code="500"
           }[1m]
         )
-      ) /
+      ) or vector(0) /
       sum(
         rate(
           istio_io:service_server_request_count{
@@ -27,7 +27,7 @@ spec:
             destination_workload_namespace="{{ namespace }}"
           }[1m]
         )
-      )
+      ) or vector(0)
     )
     
 
