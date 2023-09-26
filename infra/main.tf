@@ -42,7 +42,7 @@ module "vpc" {
 }
 
 module "worker_cluster" {
-  for_each          = toset(["1", "2"])
+  for_each          = toset(["1"])
   cl_index          = each.value
   source            = "./modules/worker-cluster"
   region            = local.region
@@ -85,11 +85,23 @@ resource "google_compute_global_address" "multi_cluster_ingress_ip_api" {
   name = "multi-cluster-ingress-api"
 }
 
+resource "google_compute_global_address" "multi_cluster_ingress_ip_api" {
+  name = "usecase-ingress-api"
+}
+
 resource "google_compute_managed_ssl_certificate" "anthos" {
   name = "anthos-cert"
 
   managed {
     domains = ["anthos.gcp-demo.be-svc.at."]
+  }
+}
+
+resource "google_compute_managed_ssl_certificate" "anthos" {
+  name = "usecase-cert"
+
+  managed {
+    domains = ["usecase.gcp-demo.be-svc.at."]
   }
 }
 
