@@ -109,7 +109,7 @@ spec:
   selector:
     app: asm-l4gateway
     istio: ingressgateway
-  type: LoadBalancer 
+  type: ClusterIP 
 ---
 apiVersion: policy/v1
 kind: PodDisruptionBudget
