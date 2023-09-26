@@ -32,7 +32,7 @@ spec:
         serviceName: anthos-ingress-service
         servicePort: 80
       rules:  
-      - host: "usecase.gcp-demo.be-svc.at"
+      - host: "usecase.anthos.gcp-demo.be-svc.at"
         http:
           paths:
           - backend:

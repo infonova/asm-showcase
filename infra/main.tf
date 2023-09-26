@@ -101,7 +101,7 @@ resource "google_compute_managed_ssl_certificate" "anthos-usecaes" {
   name = "usecase-cert"
 
   managed {
-    domains = ["usecase.gcp-demo.be-svc.at."]
+    domains = ["usecase.anthos.gcp-demo.be-svc.at."]
   }
 }
 
@@ -114,5 +114,13 @@ resource "google_dns_record_set" "mci-a-record" {
   name         = "anthos.gcp-demo.be-svc.at."
   type         = "A"
   rrdatas      = [google_compute_global_address.multi_cluster_ingress_ip_api.address]
+  ttl          = 300
+}
+
+resource "google_dns_record_set" "mci-uc-a-record" {
+  managed_zone = data.google_dns_managed_zone.anthos.name
+  name         = "usecase.anthos.gcp-demo.be-svc.at."
+  type         = "A"
+  rrdatas      = [google_compute_global_address.multi_cluster_ingress_ip_api_usecase.address]
   ttl          = 300
 }
