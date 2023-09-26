@@ -2,7 +2,7 @@ apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: hello-service
-  namespace: asm-showcase
+  namespace: asm-usecase
 spec:
   hosts:
     - anthos.gcp-demo.be-svc.at
@@ -16,13 +16,13 @@ spec:
               exact: 'user-2'
       route:
         - destination:
-            host: hello-service.asm-showcase.svc.cluster.local
+            host: hello-service.asm-usecase.svc.cluster.local
             subset: v2
           weight: 100
     - name: hello-service-v1
       route:
         - destination:
-            host: hello-service.asm-showcase.svc.cluster.local
+            host: hello-service.asm-usecase.svc.cluster.local
             subset: v1
           weight: 100
 

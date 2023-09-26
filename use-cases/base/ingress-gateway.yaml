@@ -16,10 +16,10 @@ apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:
   name: my-gateway
-  namespace: asm-showcase
+  namespace: asm-usecase
 spec:
   selector:
-    app: asm-ingressgateway
+    app: asm-l4gateway
     istio: ingressgateway
   servers:
     - port:
@@ -32,14 +32,14 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: asm-ingressgateway
-  namespace: asm-showcase
+  name: asm-l4gateway
+  namespace: asm-usecase
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: asm-ingressgateway
-  namespace: asm-showcase
+  name: asm-l4gateway
+  namespace: asm-usecase
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
@@ -48,26 +48,26 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: asm-ingressgateway
-  namespace: asm-showcase  
+  name: asm-l4gateway
+  namespace: asm-usecase  
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: asm-ingressgateway
+  name: asm-l4gateway
 subjects:
 - kind: ServiceAccount
-  name: asm-ingressgateway
+  name: asm-l4gateway
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: asm-showcase
-  name: asm-ingressgateway
+  namespace: asm-usecase
+  name: asm-l4gateway
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: asm-ingressgateway
+      app: asm-l4gateway
       istio: ingressgateway
   template:
     metadata:
@@ -76,7 +76,7 @@ spec:
         # required configuration.
         inject.istio.io/templates: gateway
       labels:
-        app: asm-ingressgateway
+        app: asm-l4gateway
         istio: ingressgateway
     spec:
       containers:
@@ -89,15 +89,15 @@ spec:
           requests:
             cpu: 100m
             memory: 128Mi
-      serviceAccountName: asm-ingressgateway
+      serviceAccountName: asm-l4gateway
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: asm-showcase
-  name: asm-ingressgateway
+  namespace: asm-usecase
+  name: asm-l4gateway
   labels:
-    app: asm-ingressgateway
+    app: asm-l4gateway
     istio: ingressgateway
 spec:
   ports:
@@ -107,27 +107,27 @@ spec:
   - name: http
     port: 80    
   selector:
-    app: asm-ingressgateway
+    app: asm-l4gateway
     istio: ingressgateway
-  type: ClusterIP 
+  type: LoadBalancer 
 ---
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  namespace: asm-showcase
-  name: asm-ingressgateway
+  namespace: asm-usecase
+  name: asm-l4gateway
 spec:
   maxUnavailable: 1
   selector:
     matchLabels:
-      app: asm-ingressgateway
+      app: asm-l4gateway
       istio: ingressgateway
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  namespace: asm-showcase
-  name: asm-ingressgateway
+  namespace: asm-usecase
+  name: asm-l4gateway
 spec:
   maxReplicas: 5
   metrics:
@@ -141,4 +141,4 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: asm-ingressgateway
+    name: asm-l4gateway

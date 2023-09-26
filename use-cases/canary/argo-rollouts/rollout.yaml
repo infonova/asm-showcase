@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   name: hello-service
-  namespace: asm-showcase
+  namespace: asm-usecase
 spec:
   replicas: 1
   selector:
@@ -62,7 +62,7 @@ spec:
         startingStep: 2 # delay starting analysis run until setWeight: 40%
         args:
           - name: namespace
-            value: asm-showcase
+            value: asm-usecase
           - name: service-name
             value: hello-service
           - name: latest-hash

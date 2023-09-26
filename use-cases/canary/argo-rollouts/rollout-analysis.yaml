@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
 metadata:
   name: error-rate
-  namespace: asm-showcase
+  namespace: asm-usecase
 spec:
   args:
     - name: namespace

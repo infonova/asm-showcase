@@ -2,7 +2,7 @@ apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: hello-service
-  namespace: asm-showcase
+  namespace: asm-usecase
 spec:
   hosts:
     - anthos.gcp-demo.be-svc.at
@@ -12,10 +12,10 @@ spec:
     - name: primary       # referenced in canary.trafficRouting.istio.virtualService.routes
       route:
         - destination:
-            host: hello-service.asm-showcase.svc.cluster.local
+            host: hello-service.asm-usecase.svc.cluster.local
             subset: stable  # referenced in canary.trafficRouting.istio.destinationRule.stableSubsetName
           weight: 100
         - destination:
-            host: hello-service.asm-showcase.svc.cluster.local
+            host: hello-service.asm-usecase.svc.cluster.local
             subset: canary  # referenced in canary.trafficRouting.istio.destinationRule.canarySubsetName
           weight: 0

@@ -2,7 +2,7 @@ apiVersion: flagger.app/v1beta1
 kind: MetricTemplate
 metadata:
   name: 500-percentage
-  namespace: asm-showcase
+  namespace: asm-usecase
 spec:
   provider:
     type: prometheus

@@ -2,7 +2,7 @@ apiVersion: flagger.app/v1beta1
 kind: Canary
 metadata:
   name: hello-service
-  namespace: asm-showcase
+  namespace: asm-usecase
 spec:
   targetRef:
     apiVersion: apps/v1
@@ -36,7 +36,7 @@ spec:
       - name: "500s percentage"
         templateRef:
           name: 500-percentage
-          namespace: asm-showcase
+          namespace: asm-usecase
         thresholdRange:
           min: 0
           max: 5

@@ -11,6 +11,6 @@ spec:
         kinds:
           - AuthorizationPolicy
     namespaces:
-      - asm-showcase
+      - asm-usecase
   parameters:
     strictnessLevel: High

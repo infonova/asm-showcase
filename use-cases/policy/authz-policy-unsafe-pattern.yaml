@@ -2,7 +2,7 @@ apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
   name: allow-health-endpoint
-  namespace: asm-showcase
+  namespace: asm-usecase
 spec:
   action: DENY
   rules:

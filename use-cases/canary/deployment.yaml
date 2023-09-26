@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hello-service
-  namespace: asm-showcase
+  namespace: asm-usecase
 spec:
   selector:
     matchLabels:
