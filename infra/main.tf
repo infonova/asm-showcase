@@ -85,7 +85,7 @@ resource "google_compute_global_address" "multi_cluster_ingress_ip_api" {
   name = "multi-cluster-ingress-api"
 }
 
-resource "google_compute_global_address" "multi_cluster_ingress_ip_api" {
+resource "google_compute_global_address" "multi_cluster_ingress_ip_api_usecase" {
   name = "usecase-ingress-api"
 }
 
@@ -97,7 +97,7 @@ resource "google_compute_managed_ssl_certificate" "anthos" {
   }
 }
 
-resource "google_compute_managed_ssl_certificate" "anthos" {
+resource "google_compute_managed_ssl_certificate" "anthos-usecaes" {
   name = "usecase-cert"
 
   managed {
