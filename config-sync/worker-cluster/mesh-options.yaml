@@ -5,6 +5,9 @@ data:
       tracing:
         stackdriver: {}
     accessLogFile: /dev/stdout
+    defaultConfig:
+      tracing:
+        stackdriver: {}    
 kind: ConfigMap
 metadata:
   name: istio-asm-managed
