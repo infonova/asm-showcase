@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: asm-usecase
-  labels:
-    istio.io/rev: asm-managed

@@ -54,6 +54,13 @@ spec:
             httpGet:
               path: /-/healthy
               port: web
+          resources:
+            limits:
+              cpu: 100m
+              memory: 256Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
 ---
 apiVersion: v1
 kind: Service

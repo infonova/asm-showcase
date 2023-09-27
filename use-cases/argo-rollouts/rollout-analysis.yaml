@@ -21,22 +21,22 @@ spec:
           query: |
             100 * (
               sum(
-                rate(
+                increase(
                   istio_io:service_server_request_count{
                     monitored_resource="istio_canonical_service",
                     destination_workload_name="{{ args.service-name }}-{{ args.latest-hash }}",
                     destination_workload_namespace="{{ args.namespace }}",
                     response_code="500"
-                  }[1m]
+                  }[2m]
                 )
-              ) or vector(0) /
+              ) /
               sum(
-                rate(
+                increase(
                   istio_io:service_server_request_count{
                     monitored_resource="istio_canonical_service",
                     destination_workload_name="{{ args.service-name }}-{{ args.latest-hash }}",
                     destination_workload_namespace="{{ args.namespace }}"
-                  }[1m]
+                  }[2m]
                 )
-              ) or vector(0)
-            )
+              )
+            ) or vector(0)

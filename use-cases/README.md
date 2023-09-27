@@ -7,3 +7,8 @@ Sources
 - https://argoproj.github.io/argo-rollouts/features/analysis/
 - https://cloud.google.com/stackdriver/docs/managed-prometheus/query
 - https://argo-rollouts.readthedocs.io/en/stable/dashboard/
+
+
+
+Kubectl argo plugin
+https://argo-rollouts.readthedocs.io/en/stable/features/kubectl-plugin/#visualizing-rollouts-and-experiments

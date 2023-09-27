@@ -33,12 +33,12 @@ spec:
 
 
               # TODO delete
-            - name: ERROR_RATE
-              value: "1"
-            - name: ERROR_TYPE
-              value: "http_error"
-            - name: ERROR_CODE
-              value: "500"
+#            - name: ERROR_RATE
+#              value: "1"
+#            - name: ERROR_TYPE
+#              value: "http_error"
+#            - name: ERROR_CODE
+#              value: "500"
 
 
           ports:
@@ -59,7 +59,7 @@ spec:
       analysis:
         templates:
           - templateName: error-rate
-        startingStep: 2 # delay starting analysis run until setWeight: 40%
+        startingStep: 2 # delay starting analysis run until setWeight: 20%
         args:
           - name: namespace
             value: asm-usecase
@@ -74,13 +74,13 @@ spec:
             duration: 1m
         - setWeight: 20
         - pause:
-            duration: 1m
+            duration: 2m
         - setWeight: 30
         - pause:
-            duration: 1m
+            duration: 2m
         - setWeight: 40
         - pause:
-            duration: 1m
+            duration: 2m
         - setWeight: 50
         - pause:
-            duration: 1m
+            duration: 2m

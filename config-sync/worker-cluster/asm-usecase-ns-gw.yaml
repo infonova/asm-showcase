@@ -12,6 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: asm-usecase
+  labels:
+    istio.io/rev: asm-managed
+---
 apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:

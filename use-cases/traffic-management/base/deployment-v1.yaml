@@ -1,16 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-service
+  name: hello-service-v1
   namespace: asm-usecase
 spec:
   selector:
     matchLabels:
       app: hello-service
+      version: v1
   template:
     metadata:
       labels:
         app: hello-service
+        version: v1
     spec:
       containers:
         - name: hello-service
@@ -28,13 +30,14 @@ spec:
             - name: LISTEN_ADDR
               value: '0.0.0.0:8080'
             - name: MESSAGE
-              value: 'Hello from v2'
-            - name: ERROR_RATE
-              value: "1"
-            - name: ERROR_TYPE
-              value: "http_error"
-            - name: ERROR_CODE
-              value: "500"
+              value: 'Hello World from v1'
           ports:
             - name: http
               containerPort: 8080
+          resources:
+            limits:
+              cpu: 150m
+              memory: 256Mi
+            requests:
+              cpu: 25m
+              memory: 128Mi

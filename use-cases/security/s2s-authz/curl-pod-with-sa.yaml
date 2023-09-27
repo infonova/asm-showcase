@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: curl-pod
+  namespace: asm-usecase
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: curl-pod
+  namespace: asm-usecase
+spec:
+  restartPolicy: Never
+  serviceAccountName: curl-pod
+  containers:
+    - name: debug
+      image: ellerbrock/alpine-bash-curl-ssl
+      command: ["sh", "-c", "tail -f /dev/null"]
+      resources:
+        limits:
+          cpu: 50m
+          memory: 256Mi

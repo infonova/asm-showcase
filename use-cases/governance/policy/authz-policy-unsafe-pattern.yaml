@@ -8,5 +8,5 @@ spec:
   rules:
     - to:
         - operation:
-            paths:
+            notPaths:
               - "/ui"

@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: asm-ingressgateway
+      app: asm-l4gateway
       istio: ingressgateway
   jwtRules:
     - issuer: "https://my-issuer.com"

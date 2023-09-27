@@ -5,7 +5,7 @@ metadata:
   namespace: asm-usecase
 spec:
   hosts:
-    - anthos.gcp-demo.be-svc.at
+    - 'usecase.anthos.gcp-demo.be-svc.at'
   gateways:
     - my-gateway
   http:

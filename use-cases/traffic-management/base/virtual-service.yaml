@@ -5,25 +5,13 @@ metadata:
   namespace: asm-usecase
 spec:
   hosts:
-    - anthos.gcp-demo.be-svc.at
+    - 'usecase.anthos.gcp-demo.be-svc.at'
   gateways:
     - my-gateway
   http:
-    - name: hello-service-v2-jwt-based
-      match:
-        - headers:
-            "@request.auth.claims.sub":
-              exact: 'user-2'
-      route:
-        - destination:
-            host: hello-service.asm-usecase.svc.cluster.local
-            subset: v2
-          weight: 100
     - name: hello-service-v1
       route:
         - destination:
             host: hello-service.asm-usecase.svc.cluster.local
             subset: v1
           weight: 100
-
-

@@ -5,7 +5,7 @@ metadata:
   namespace: asm-usecase
 spec:
   hosts:
-    - '*'
+    - 'usecase.anthos.gcp-demo.be-svc.at'
   gateways:
     - my-gateway
   http:
@@ -15,3 +15,8 @@ spec:
             host: hello-service.asm-usecase.svc.cluster.local
             subset: v1
           weight: 100
+      fault:
+        abort:
+          percentage:
+            value: 50
+          httpStatus: 418
