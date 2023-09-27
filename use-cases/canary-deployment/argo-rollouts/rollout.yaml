@@ -1,20 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: hello-service
+  name: greet-service
   namespace: asm-usecase
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-service
+      app: greet-service
   template:
     metadata:
       labels:
-        app: hello-service
+        app: greet-service
     spec:
       containers:
-        - name: hello-service
+        - name: greet-service
           image: nicholasjackson/fake-service:v0.26.0
           imagePullPolicy: IfNotPresent
           readinessProbe:
@@ -29,31 +29,27 @@ spec:
             - name: LISTEN_ADDR
               value: '0.0.0.0:8080'
             - name: MESSAGE
-              value: 'Hello from v2'
-
-
-              # TODO delete
-#            - name: ERROR_RATE
-#              value: "1"
-#            - name: ERROR_TYPE
-#              value: "http_error"
-#            - name: ERROR_CODE
-#              value: "500"
-
-
+              value: 'Greetings from v1'
           ports:
             - name: http
               containerPort: 8080
+          resources:
+            limits:
+              cpu: 150m
+              memory: 256Mi
+            requests:
+              cpu: 25m
+              memory: 128Mi
   strategy:
     canary:
       trafficRouting:
         istio:
           virtualService:
-            name: hello-service
+            name: greet-service
             routes:
               - primary                 # optional if there is a single route in VirtualService, required otherwise
           destinationRule:
-            name: hello-service    # required
+            name: greet-service    # required
             canarySubsetName: canary  # required
             stableSubsetName: stable  # required
       analysis:
@@ -64,7 +60,7 @@ spec:
           - name: namespace
             value: asm-usecase
           - name: service-name
-            value: hello-service
+            value: greet-service
           - name: latest-hash
             valueFrom:
               podTemplateHashValue: Latest

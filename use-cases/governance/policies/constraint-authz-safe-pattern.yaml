@@ -3,7 +3,6 @@ kind: AsmAuthzPolicySafePattern
 metadata:
   name: asm-authz-policy-safe-pattern
 spec:
-#  enforcementAction: dryrun
   match:
     kinds:
       - apiGroups:

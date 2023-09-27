@@ -14,7 +14,7 @@ spec:
       # NOTE: prometheus queries return results in the form of a vector.
       # So it is common to access the index 0 of the returned array to obtain the value
       failureCondition: result[0] > 5  # fails if more than 5% 500s are returned
-      failureLimit: 1
+      failureLimit: 0
       provider:
         prometheus:
           address: http://prom-frontend.monitoring:9090

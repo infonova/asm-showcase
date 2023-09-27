@@ -1,3 +1,7 @@
+## Base Setup
+Create two versions of a deployment (different response bodies), a service, a VirtualService and a DestinationRule.
+The following use cases will configure the base VirtualService.
+
 ```shell
 kubectl apply -f .\base\
 ```
@@ -28,7 +32,7 @@ kubectl logs deployment/hello-service-v2 -n asm-usecase --follow
 kubectl apply -f .\fault-injection\
 ```
 
-## Teardown
+## Teardown Base Setup
 ```shell
 kubectl delete -f .\base\
 ```

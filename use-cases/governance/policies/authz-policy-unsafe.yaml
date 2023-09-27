@@ -1,0 +1,15 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: deny-principals
+  namespace: asm-usecase
+spec:
+  selector:
+    matchLabels:
+      app: test
+  action: DENY
+  rules:
+    - to:
+        - operation:
+            paths:
+              - "/v1/test"
