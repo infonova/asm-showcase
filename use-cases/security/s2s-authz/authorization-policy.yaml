@@ -1,0 +1,15 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-curl-pod
+  namespace: asm-usecase
+spec:
+  selector:
+    matchLabels:
+      app: secure-service
+  action: ALLOW
+  rules:
+    - from:
+        - source:
+            principals:
+              - "cluster.local/ns/asm-usecase/sa/curl-pod"

@@ -1,0 +1,16 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: AsmAuthzPolicySafePattern
+metadata:
+  name: asm-authz-policy-safe-pattern
+spec:
+#  enforcementAction: dryrun
+  match:
+    kinds:
+      - apiGroups:
+          - security.istio.io
+        kinds:
+          - AuthorizationPolicy
+    namespaces:
+      - asm-usecase
+  parameters:
+    strictnessLevel: High

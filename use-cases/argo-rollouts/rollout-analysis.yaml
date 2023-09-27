@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: error-rate
+  namespace: asm-usecase
+spec:
+  args:
+    - name: namespace
+    - name: service-name
+    - name: latest-hash
+  metrics:
+    - name: error-rate
+      interval: 1m
+      # NOTE: prometheus queries return results in the form of a vector.
+      # So it is common to access the index 0 of the returned array to obtain the value
+      failureCondition: result[0] > 5  # fails if more than 5% 500s are returned
+      failureLimit: 1
+      provider:
+        prometheus:
+          address: http://prom-frontend.monitoring:9090
+          query: |
+            100 * (
+              sum(
+                increase(
+                  istio_io:service_server_request_count{
+                    monitored_resource="istio_canonical_service",
+                    destination_workload_name="{{ args.service-name }}-{{ args.latest-hash }}",
+                    destination_workload_namespace="{{ args.namespace }}",
+                    response_code="500"
+                  }[2m]
+                )
+              ) /
+              sum(
+                increase(
+                  istio_io:service_server_request_count{
+                    monitored_resource="istio_canonical_service",
+                    destination_workload_name="{{ args.service-name }}-{{ args.latest-hash }}",
+                    destination_workload_namespace="{{ args.namespace }}"
+                  }[2m]
+                )
+              )
+            ) or vector(0)

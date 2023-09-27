@@ -1,0 +1,86 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: hello-service
+  namespace: asm-usecase
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-service
+  template:
+    metadata:
+      labels:
+        app: hello-service
+    spec:
+      containers:
+        - name: hello-service
+          image: nicholasjackson/fake-service:v0.26.0
+          imagePullPolicy: IfNotPresent
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /ready
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /health
+          env:
+            - name: LISTEN_ADDR
+              value: '0.0.0.0:8080'
+            - name: MESSAGE
+              value: 'Hello from v2'
+
+
+              # TODO delete
+#            - name: ERROR_RATE
+#              value: "1"
+#            - name: ERROR_TYPE
+#              value: "http_error"
+#            - name: ERROR_CODE
+#              value: "500"
+
+
+          ports:
+            - name: http
+              containerPort: 8080
+  strategy:
+    canary:
+      trafficRouting:
+        istio:
+          virtualService:
+            name: hello-service
+            routes:
+              - primary                 # optional if there is a single route in VirtualService, required otherwise
+          destinationRule:
+            name: hello-service    # required
+            canarySubsetName: canary  # required
+            stableSubsetName: stable  # required
+      analysis:
+        templates:
+          - templateName: error-rate
+        startingStep: 2 # delay starting analysis run until setWeight: 20%
+        args:
+          - name: namespace
+            value: asm-usecase
+          - name: service-name
+            value: hello-service
+          - name: latest-hash
+            valueFrom:
+              podTemplateHashValue: Latest
+      steps:
+        - setWeight: 10
+        - pause:
+            duration: 1m
+        - setWeight: 20
+        - pause:
+            duration: 2m
+        - setWeight: 30
+        - pause:
+            duration: 2m
+        - setWeight: 40
+        - pause:
+            duration: 2m
+        - setWeight: 50
+        - pause:
+            duration: 2m
