@@ -15,7 +15,6 @@ kubectl apply -f .\jwt-based-routing\
 kubectl delete -f .\jwt-based-routing\request-authentication.yaml
 ```
 
-
 ## Traffic Mirroring
 ```shell
 kubectl apply -f .\mirror\
@@ -26,10 +25,14 @@ Follow logs of v2 deployment to show requests
 kubectl logs deployment/hello-service-v2 -n asm-usecase --follow
 ```
 
-
 ## Fault Injection
 ```shell
 kubectl apply -f .\fault-injection\
+```
+
+## Traffic Splitting
+```shell
+kubectl apply -f .\split\
 ```
 
 ## Teardown Base Setup

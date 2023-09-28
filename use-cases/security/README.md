@@ -9,6 +9,7 @@ Create Pod to run curl command. Disable sidecar injection
 kubectl apply -f .\mtls\curl-pod-without-proxy.yaml
 ```
 
+Execute curl command from inside pod - it works since Istio sidecar allows plaintext connections.
 ```shell
 kubectl exec --stdin --tty curl-pod -n asm-usecase -- bash
 ```
@@ -39,14 +40,7 @@ kubectl apply -f .\s2s-authz\curl-pod-with-sa.yaml
 kubectl delete pod curl-pod -n asm-usecase
 ```
 
-```shell
-```
 
-```shell
-```
-
-```shell
-```
 
 
 

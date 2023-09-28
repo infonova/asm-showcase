@@ -5,4 +5,4 @@ metadata:
   namespace: asm-usecase
 spec:
   mtls:
-    mode: STRICT
+    mode: STRICT # default value is PERMISSIVE
