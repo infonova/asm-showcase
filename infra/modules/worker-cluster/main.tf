@@ -20,6 +20,7 @@ module "gke" {
   create_service_account     = true
   grant_registry_access      = true
   gce_pd_csi_driver          = false
+  deletion_protection        = false
 
   cluster_resource_labels = {
     "mesh_id" = "proj-${data.google_project.project.number}"

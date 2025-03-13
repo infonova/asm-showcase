@@ -1,5 +1,5 @@
 resource "google_service_account" "prom_frontend" {
-  project = data.google_project.project.project_id
+  project    = data.google_project.project.project_id
   account_id = "prom-frontend"
 }
 
