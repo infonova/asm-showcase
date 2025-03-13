@@ -12,7 +12,7 @@ data "google_project" "project" {}
 
 module "vpc" {
   source     = "terraform-google-modules/network/google"
-  version    = "~> 7.0"
+  version    = "~> 10.0.0"
   project_id = data.google_project.project.project_id
 
   network_name = local.vpc_name
@@ -106,7 +106,7 @@ resource "google_compute_managed_ssl_certificate" "anthos-usecaes" {
 }
 
 data "google_dns_managed_zone" "anthos" {
-  name = "anthos-gcp-demo"
+  name = "gcp-demo"
 }
 
 resource "google_dns_record_set" "mci-a-record" {
