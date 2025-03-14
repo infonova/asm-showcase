@@ -52,6 +52,7 @@ module "worker_cluster" {
   ip_range_services = local.svc_ip_range_name
   acm_feature       = google_gke_hub_feature.acm.name
   asm_feature       = google_gke_hub_feature.asm.name
+  pc_feature        = google_gke_hub_feature.pc.name
 }
 
 module "config_cluster" {
@@ -76,6 +77,14 @@ resource "google_gke_hub_feature" "acm" {
 resource "google_gke_hub_feature" "asm" {
   project  = data.google_project.project.project_id
   name     = "servicemesh"
+  location = "global"
+
+  provider = google-beta
+}
+
+resource "google_gke_hub_feature" "pc" {
+  project  = data.google_project.project.project_id
+  name     = "policycontroller"
   location = "global"
 
   provider = google-beta

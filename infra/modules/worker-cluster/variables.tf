@@ -32,3 +32,6 @@ variable "asm_feature" {
 variable "acm_feature" {
 
 }
+variable "pc_feature" {
+
+}
